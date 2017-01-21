@@ -1,53 +1,66 @@
 #define fillVolume
-///fillVolume(xarray, yarray, volumearray)
+///fillVolume(xstack, ystack, volumestack)
 // Determine volume at point
 // based on distance from other points with given volume
 // returns array of volumes at all points
 // assumes that all points are within the map
-// and that xarray, yarray, volumearray are equal size
+// and that xstack, ystack, volumestack are equal size
 
-var xarray = argument0
-var yarray = argument1
-var volumearray = argument2
-var temparrays
+var to_check_x = argument0;
+var to_check_y = argument1;
+var to_check_vol = argument2;
+target = false; // just to clean it out... still having confusion w/ scoping in this engine
 
 // initial volumes
-for (i=0; i < array_length_1d(xarray); ++i) {
-    var xpos = xarray[i]
-    var ypos = yarray[i]
-    var vol = volumearray[i]
-    if (global.vols[xpos, ypos] < vol) {
-        global.vols[xpos, ypos] = vol
-        // and spread from there
-        soundSpread(xpos, ypos)
+for (var p=0; p<global.gridsize; ++p) {
+    for (var q=0; q<global.gridsize; ++q) {
+        target[p, q] = 0;
     }
 }
+// and spread from there
+soundSpread(target, to_check_x, to_check_y, to_check_vol)
+return target
 
 #define soundSpread
-///soundSpread(xpos, ypos)
+///soundSpread(target, to_check_x, to_check_y, to_check_vol)
 // Spread based on volume at given point until zero or drowned out
 // map used to modify sound spread for walls
 
-var xpos = argument0
-var ypos = argument1
+target = argument0
+var to_check_x = argument1
+var to_check_y = argument2
+var to_check_vol = argument3
 
-// naive recursive implementation - can fix if stack becomes an issue
-var vol = global.vols[xpos, ypos]
-if (vol > 1) { // can still spread
-    // set all four directions
-    if (ypos > 0) {singleSpread(xpos, ypos-1, vol)}
-    if (ypos < global.gridsize - 1) {singleSpread(xpos, ypos+1, vol)}
-    if (xpos < global.gridsize - 1) {singleSpread(xpos+1, ypos, vol)}
-    if (xpos > 0) {singleSpread(xpos-1, ypos, vol)}
-}
-
-#define singleSpread
-///singleSpread(xpos, ypos, base_vol)
-// the most repeated part of soundSpread
-
-var vol = argument2 - 1 - ds_grid_get(global.map, argument0, argument1)
-if (global.vols[argument0, argument1] < vol) { // TODO this leaves problems on multiple sources of sound
-        global.vols[argument0, argument1] = vol
-        // and recur
-        soundSpread(argument0, argument1)
+// looping implementation
+while (!ds_stack_empty(to_check_x)) {
+    // use the top one from the stack
+    var xpos = ds_stack_pop(to_check_x);
+    var ypos = ds_stack_pop(to_check_y);
+    var vol = ds_stack_pop(to_check_vol) - ds_grid_get(global.map, xpos, ypos);
+    if (target[xpos, ypos] < vol) {
+        target[xpos, ypos] = vol
+    }
+    // spread if it's not done
+    if (vol > 1) {
+        if (ypos > 0) {
+            ds_stack_push(to_check_x, xpos)
+            ds_stack_push(to_check_y, ypos - 1)
+            ds_stack_push(to_check_vol, vol - 1)
+        }
+        if (ypos < global.gridsize - 1) {
+            ds_stack_push(to_check_x, xpos)
+            ds_stack_push(to_check_y, ypos + 1)
+            ds_stack_push(to_check_vol, vol - 1)
+        }
+        if (xpos < global.gridsize - 1) {
+            ds_stack_push(to_check_x, xpos + 1)
+            ds_stack_push(to_check_y, ypos)
+            ds_stack_push(to_check_vol, vol - 1)
+        }
+        if (xpos > 0) {
+            ds_stack_push(to_check_x, xpos - 1)
+            ds_stack_push(to_check_y, ypos)
+            ds_stack_push(to_check_vol, vol - 1)
+        }
+    }
 }

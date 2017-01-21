@@ -8,7 +8,7 @@
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
-    <event eventtype="7" enumb="2">
+    <event eventtype="0" enumb="0">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -28,7 +28,7 @@
             <string>/// Initial setup
 global.tilesize = 16
 global.gridsize = 50
-global.wallmute = 1
+global.wallmute = 2
 
 // grid positions of walls
 // grid stores sound travel cost multiplier
@@ -98,6 +98,8 @@ for (i=0; i&lt;global.gridsize; ++i) {
         }
     }
 }
+
+global.soundsources = ds_list_create()
 </string>
           </argument>
         </arguments>
@@ -121,16 +123,24 @@ for (i=0; i&lt;global.gridsize; ++i) {
           <argument>
             <kind>1</kind>
             <string>///Determine volume at all locations
-for (i=0; i&lt;50; ++i) {
-    for (j=0; j&lt;50; ++j) {
+for (i=0; i&lt;global.gridsize; ++i) {
+    for (j=0; j&lt;global.gridsize; ++j) {
         global.vols[i, j] = 0
     }
 }
 
-xarray[0] = (Player.x / global.tilesize) + 1
-yarray[0] = (Player.y / global.tilesize) + 1
-volumearray[0] = Player.loudness
-fillVolume(xarray, yarray, volumearray)
+var to_check_x = ds_stack_create()
+var to_check_y = ds_stack_create()
+var to_check_vol = ds_stack_create()
+
+for (i=0; i&lt;ds_list_size(global.soundsources); ++i) {
+    var thing = ds_list_find_value(global.soundsources, i);
+    ds_stack_push(to_check_x, thing.tilex)
+    ds_stack_push(to_check_y, thing.tiley)
+    ds_stack_push(to_check_vol, thing.loudness)
+}
+
+global.vols = fillVolume(to_check_x, to_check_y, to_check_vol)
 </string>
           </argument>
         </arguments>
