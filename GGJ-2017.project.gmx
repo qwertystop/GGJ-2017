@@ -10,10 +10,13 @@
     <sprite>sprites\spr_wall</sprite>
   </sprites>
   <backgrounds name="background"/>
-  <paths name="paths"/>
+  <paths name="paths">
+    <path>paths\path0</path>
+  </paths>
   <objects name="objects">
     <object>objects\Player</object>
     <object>objects\wall</object>
+    <object>objects\guard</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\room0</room>
