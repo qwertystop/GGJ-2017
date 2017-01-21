@@ -12,6 +12,7 @@
   <backgrounds name="background"/>
   <paths name="paths">
     <path>paths\SW</path>
+    <path>paths\NW</path>
   </paths>
   <objects name="objects">
     <object>objects\Player</object>
