@@ -41,8 +41,8 @@ if keyboard_check(vk_right) hspeed = speed_mod;
 
 // collision check for walls and half-walls
 // horizontal
-if (place_meeting(x+hspeed,y,wallParent)) hspeed=0;
-if (place_meeting(x,y+vspeed,wallParent)) vspeed=0;
+if (place_meeting(x+hspeed,y,Wall)) hspeed=0;
+if (place_meeting(x,y+vspeed,Wall)) vspeed=0;
 </string>
           </argument>
         </arguments>

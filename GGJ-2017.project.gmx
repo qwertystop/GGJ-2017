@@ -9,20 +9,19 @@
     <sprite>sprites\spr_player</sprite>
     <sprite>sprites\spr_wall</sprite>
     <sprite>sprites\spr_floor</sprite>
-    <sprite>sprites\spr_wall_half</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths">
     <path>paths\SW</path>
     <path>paths\NW</path>
   </paths>
+  <scripts name="scripts"/>
   <objects name="objects">
     <object>objects\Player</object>
     <object>objects\Wall</object>
-    <object>objects\WallHalf</object>
     <object>objects\guard</object>
     <object>objects\Floor</object>
-    <object>objects\wallParent</object>
+    <object>objects\room0_globals</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\room0</room>
