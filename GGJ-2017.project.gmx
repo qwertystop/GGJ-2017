@@ -16,7 +16,7 @@
     <path>paths\NW</path>
   </paths>
   <scripts name="scripts">
-    <script>scripts\gridVolume.gml</script>
+    <script>scripts\fillVolume.gml</script>
   </scripts>
   <objects name="objects">
     <object>objects\Player</object>

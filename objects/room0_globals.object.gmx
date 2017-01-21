@@ -25,74 +25,111 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// Create walls, floor, player
+            <string>/// Initial setup
+global.tilesize = 16
+global.gridsize = 50
 
 // grid positions of walls
 // grid stores sound travel cost multiplier
-map = ds_grid_create(50, 50)
+global.map = ds_grid_create(50, 50)
+// fill with zeroes explicitly
+ds_grid_set_region(global.map, 0, 0, 49, 49, 0)
 // outer walls
 // impenetrable to sound
 // north
-ds_grid_set_region(map, 0, 0, 49, 1, 99)
+ds_grid_set_region(global.map, 0, 0, 49, 1, 99)
 // west
-ds_grid_set_region(map, 0, 2, 1, 49, 99)
+ds_grid_set_region(global.map, 0, 2, 1, 49, 99)
 // southwest
-ds_grid_set_region(map, 2, 48, 21, 49, 99)
+ds_grid_set_region(global.map, 2, 48, 21, 49, 99)
 // southeast
-ds_grid_set_region(map, 26, 48, 49, 49, 99)
+ds_grid_set_region(global.map, 26, 48, 49, 49, 99)
 // east
-ds_grid_set_region(map, 48, 2, 49, 48, 99)
+ds_grid_set_region(global.map, 48, 2, 49, 48, 99)
 
 // interior walls
 // SSW straight
-ds_grid_set_region(map, 8, 38, 9, 49, 3)
+ds_grid_set_region(global.map, 8, 38, 9, 49, 3)
 // WSW straight
-ds_grid_set_region(map, 2, 32, 7, 33, 3)
+ds_grid_set_region(global.map, 2, 32, 7, 33, 3)
 // NNW straight
-ds_grid_set_region(map, 12, 2, 13, 5, 3)
+ds_grid_set_region(global.map, 12, 2, 13, 5, 3)
 // ENE straight
-ds_grid_set_region(map, 42, 14, 47, 15, 3)
+ds_grid_set_region(global.map, 42, 14, 47, 15, 3)
 // S center hook (NS part)
-ds_grid_set_region(map, 26, 32, 27, 47, 3)
+ds_grid_set_region(global.map, 26, 32, 27, 47, 3)
 // S center hook (EW part)
-ds_grid_set_region(map, 12, 32, 25, 33, 3)
+ds_grid_set_region(global.map, 12, 32, 25, 33, 3)
 // S center hook (small jut)
-ds_grid_set_region(map, 18, 29, 19, 31, 3)
+ds_grid_set_region(global.map, 18, 29, 19, 31, 3)
 // SSW hook (NS part)
-ds_grid_set_region(map, 20, 38, 21, 47, 3)
+ds_grid_set_region(global.map, 20, 38, 21, 47, 3)
 // SSW hook (EW part)
-ds_grid_set_region(map, 14, 38, 19, 37, 3)
+ds_grid_set_region(global.map, 14, 38, 19, 37, 3)
 // NW small floater
-ds_grid_set_region(map, 12, 2, 14, 5, 3)
+ds_grid_set_region(global.map, 12, 2, 14, 5, 3)
 // SE small floater
-ds_grid_set_region(map, 42, 42, 43, 44, 3)
-ds_grid_set_region(map, 44, 42, 44, 43, 3)
+ds_grid_set_region(global.map, 42, 42, 43, 44, 3)
+ds_grid_set_region(global.map, 44, 42, 44, 43, 3)
 // major interior (starting from W end)
 // vertical
-ds_grid_set_region(map, 6, 10, 7, 19, 3)
+ds_grid_set_region(global.map, 6, 10, 7, 19, 3)
 // horizontal
-ds_grid_set_region(map, 8, 18, 19, 19, 3)
+ds_grid_set_region(global.map, 8, 18, 19, 19, 3)
 // vertical
-ds_grid_set_region(map, 18, 20, 19, 25, 3)
+ds_grid_set_region(global.map, 18, 20, 19, 25, 3)
 /// connection
-ds_grid_set_region(map, 20, 22, 27, 23, 3)
+ds_grid_set_region(global.map, 20, 22, 27, 23, 3)
 // jut
-ds_grid_set_region(map, 22, 24, 25, 26, 3)
+ds_grid_set_region(global.map, 22, 24, 25, 26, 3)
 // vertical
-ds_grid_set_region(map, 28, 6, 29, 27, 3)
+ds_grid_set_region(global.map, 28, 6, 29, 27, 3)
 // final horizontal
-ds_grid_set_region(map, 30, 14, 35, 15, 3)
+ds_grid_set_region(global.map, 30, 14, 35, 15, 3)
 
 // create wall or floor as appropriate
-for (i=0; i&lt;50; ++i) {
-    for (j=0; j&lt;50; ++j) {
-        if ds_grid_get(map, i, j) == 0 {
-            instance_create(i*16, j*16, Floor) 
+for (i=0; i&lt;global.gridsize; ++i) {
+    for (j=0; j&lt;global.gridsize; ++j) {
+        if ds_grid_get(global.map, i, j) == 0 {
+            newfloor = instance_create(i*global.tilesize, j*global.tilesize, Floor)
         } else {
-            instance_create(i*16, j*16, Wall)
+            instance_create(i*global.tilesize, j*global.tilesize, Wall)
         }
     }
 }
+
+for (i=0; i&lt;50; ++i) {
+    for (j=0; j&lt;50; ++j) {
+        global.vols[i, j] = 0
+    }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="76">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Determine volume at all locations
+xarray[0] = Player.x / global.tilesize
+yarray[0] = Player.y / global.tilesize
+volumearray[0] = Player.loudness
+fillVolume(xarray, yarray, volumearray)
 </string>
           </argument>
         </arguments>
