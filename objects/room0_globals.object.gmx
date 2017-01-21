@@ -65,7 +65,7 @@ ds_grid_set_region(global.map, 18, 29, 19, 31, 3)
 // SSW hook (NS part)
 ds_grid_set_region(global.map, 20, 38, 21, 47, 3)
 // SSW hook (EW part)
-ds_grid_set_region(global.map, 14, 38, 19, 37, 3)
+ds_grid_set_region(global.map, 14, 38, 19, 39, 3)
 // NW small floater
 ds_grid_set_region(global.map, 12, 2, 14, 5, 3)
 // SE small floater
@@ -97,12 +97,6 @@ for (i=0; i&lt;global.gridsize; ++i) {
         }
     }
 }
-
-for (i=0; i&lt;50; ++i) {
-    for (j=0; j&lt;50; ++j) {
-        global.vols[i, j] = 0
-    }
-}
 </string>
           </argument>
         </arguments>
@@ -126,8 +120,14 @@ for (i=0; i&lt;50; ++i) {
           <argument>
             <kind>1</kind>
             <string>///Determine volume at all locations
-xarray[0] = Player.x / global.tilesize
-yarray[0] = Player.y / global.tilesize
+for (i=0; i&lt;50; ++i) {
+    for (j=0; j&lt;50; ++j) {
+        global.vols[i, j] = 0
+    }
+}
+
+xarray[0] = (Player.x + 1) / global.tilesize
+yarray[0] = (Player.y + 1) / global.tilesize
 volumearray[0] = Player.loudness
 fillVolume(xarray, yarray, volumearray)
 </string>

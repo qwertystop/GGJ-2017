@@ -26,8 +26,8 @@
           <argument>
             <kind>1</kind>
             <string>///Update color by volume
-ownVolume = global.vols[x/global.tilesize, y/global.tilesize]
-image_blend = (ownVolume * (10 / 255))
+colorshift = 255 / (global.vols[x/global.tilesize, y/global.tilesize] / 16)
+image_blend = make_color_hsv(0, colorshift, colorshift)
 </string>
           </argument>
         </arguments>

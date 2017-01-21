@@ -11,15 +11,15 @@ yarray = argument1
 volumearray = argument2
 
 // initial volumes
-for (i=1; i < array_length_1d(xarray); ++i) {
+for (i=0; i < array_length_1d(xarray); ++i) {
     xpos = xarray[i]
     ypos = yarray[i]
     vol = volumearray[i]
     if (global.vols[xpos, ypos] < vol) {
         global.vols[xpos, ypos] = vol
+        // and spread from there
+        soundSpread(xpos, ypos)
     }
-    // and spread from there
-    soundSpread(xpos, ypos)
 }
 
 #define soundSpread
@@ -34,19 +34,18 @@ ypos = argument1
 vol = global.vols[xpos, ypos]
 if (vol > 1) { // can still spread
     // set all four directions
-    singleSpread(xpos, ypos+1, vol)
-    singleSpread(xpos, ypos-1, vol)
-    singleSpread(xpos+1, ypos, vol)
-    singleSpread(xpos-1, ypos, vol)
+    if (ypos > 0) singleSpread(xpos, ypos-1, vol)
+    if (ypos < global.gridsize) singleSpread(xpos, ypos+1, vol)
+    if (xpos < global.gridsize) singleSpread(xpos+1, ypos, vol)
+    if (xpos > 0) singleSpread(xpos-1, ypos, vol)
 }
 
 #define singleSpread
 ///singleSpread(xpos, ypos, base_vol)
 // the most repeated part of soundSpread
 
-vol = argument2 - ds_grid_get(global.map, argument0, argument1)
-
-if (global.vols[argument0, argument1] < vol) {
+vol = argument2 - 1 - ds_grid_get(global.map, argument0, argument1)
+if (global.vols[argument0, argument1] == 0 && vol > 0) { // TODO this leaves problems on multiple sources of sound
         global.vols[argument0, argument1] = vol
         // and recur
         soundSpread(argument0, argument1)
