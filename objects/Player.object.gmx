@@ -35,7 +35,7 @@ if keyboard_check(vk_shift) {
     speed_mod = 3
 }
 
-self.loudness = speed_mod // before checking wall collision
+self.loudness = speed_mod * 2 // before checking wall collision
 
 // vertical
 if keyboard_check(vk_up) {

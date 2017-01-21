@@ -28,6 +28,7 @@
             <string>/// Initial setup
 global.tilesize = 16
 global.gridsize = 50
+global.wallmute = 1
 
 // grid positions of walls
 // grid stores sound travel cost multiplier
@@ -49,43 +50,43 @@ ds_grid_set_region(global.map, 48, 2, 49, 48, 99)
 
 // interior walls
 // SSW straight
-ds_grid_set_region(global.map, 8, 38, 9, 49, 3)
+ds_grid_set_region(global.map, 8, 38, 9, 49, global.wallmute)
 // WSW straight
-ds_grid_set_region(global.map, 2, 32, 7, 33, 3)
+ds_grid_set_region(global.map, 2, 32, 7, 33, global.wallmute)
 // NNW straight
-ds_grid_set_region(global.map, 12, 2, 13, 5, 3)
+ds_grid_set_region(global.map, 12, 2, 13, 5, global.wallmute)
 // ENE straight
-ds_grid_set_region(global.map, 42, 14, 47, 15, 3)
+ds_grid_set_region(global.map, 42, 14, 47, 15, global.wallmute)
 // S center hook (NS part)
-ds_grid_set_region(global.map, 26, 32, 27, 47, 3)
+ds_grid_set_region(global.map, 26, 32, 27, 47, global.wallmute)
 // S center hook (EW part)
-ds_grid_set_region(global.map, 12, 32, 25, 33, 3)
+ds_grid_set_region(global.map, 12, 32, 25, 33, global.wallmute)
 // S center hook (small jut)
-ds_grid_set_region(global.map, 18, 29, 19, 31, 3)
+ds_grid_set_region(global.map, 18, 29, 19, 31, global.wallmute)
 // SSW hook (NS part)
-ds_grid_set_region(global.map, 20, 38, 21, 47, 3)
+ds_grid_set_region(global.map, 20, 38, 21, 47, global.wallmute)
 // SSW hook (EW part)
-ds_grid_set_region(global.map, 14, 38, 19, 39, 3)
+ds_grid_set_region(global.map, 14, 38, 19, 39, global.wallmute)
 // NW small floater
-ds_grid_set_region(global.map, 12, 2, 14, 5, 3)
+ds_grid_set_region(global.map, 12, 2, 14, 5, global.wallmute)
 // SE small floater
-ds_grid_set_region(global.map, 42, 42, 43, 44, 3)
-ds_grid_set_region(global.map, 44, 42, 44, 43, 3)
+ds_grid_set_region(global.map, 42, 42, 43, 44, global.wallmute)
+ds_grid_set_region(global.map, 44, 42, 44, 43, global.wallmute)
 // major interior (starting from W end)
 // vertical
-ds_grid_set_region(global.map, 6, 10, 7, 19, 3)
+ds_grid_set_region(global.map, 6, 10, 7, 19, global.wallmute)
 // horizontal
-ds_grid_set_region(global.map, 8, 18, 19, 19, 3)
+ds_grid_set_region(global.map, 8, 18, 19, 19, global.wallmute)
 // vertical
-ds_grid_set_region(global.map, 18, 20, 19, 25, 3)
+ds_grid_set_region(global.map, 18, 20, 19, 25, global.wallmute)
 /// connection
-ds_grid_set_region(global.map, 20, 22, 27, 23, 3)
+ds_grid_set_region(global.map, 20, 22, 27, 23, global.wallmute)
 // jut
-ds_grid_set_region(global.map, 22, 24, 25, 26, 3)
+ds_grid_set_region(global.map, 22, 24, 25, 25, global.wallmute)
 // vertical
-ds_grid_set_region(global.map, 28, 6, 29, 27, 3)
+ds_grid_set_region(global.map, 28, 6, 29, 27, global.wallmute)
 // final horizontal
-ds_grid_set_region(global.map, 30, 14, 35, 15, 3)
+ds_grid_set_region(global.map, 30, 14, 35, 15, global.wallmute)
 
 // create wall or floor as appropriate
 for (i=0; i&lt;global.gridsize; ++i) {
@@ -126,8 +127,8 @@ for (i=0; i&lt;50; ++i) {
     }
 }
 
-xarray[0] = (Player.x + 1) / global.tilesize
-yarray[0] = (Player.y + 1) / global.tilesize
+xarray[0] = (Player.x / global.tilesize) + 1
+yarray[0] = (Player.y / global.tilesize) + 1
 volumearray[0] = Player.loudness
 fillVolume(xarray, yarray, volumearray)
 </string>
