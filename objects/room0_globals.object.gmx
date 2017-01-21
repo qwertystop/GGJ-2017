@@ -31,16 +31,17 @@
 // grid stores sound travel cost multiplier
 map = ds_grid_create(50, 50)
 // outer walls
+// impenetrable to sound
 // north
-ds_grid_set_region(map, 0, 0, 49, 1, 3)
+ds_grid_set_region(map, 0, 0, 49, 1, 99)
 // west
-ds_grid_set_region(map, 0, 2, 1, 49, 3)
+ds_grid_set_region(map, 0, 2, 1, 49, 99)
 // southwest
-ds_grid_set_region(map, 2, 48, 21, 49, 3)
+ds_grid_set_region(map, 2, 48, 21, 49, 99)
 // southeast
-ds_grid_set_region(map, 26, 48, 49, 49, 3)
+ds_grid_set_region(map, 26, 48, 49, 49, 99)
 // east
-ds_grid_set_region(map, 48, 2, 49, 48, 3)
+ds_grid_set_region(map, 48, 2, 49, 48, 99)
 
 // interior walls
 // SSW straight
