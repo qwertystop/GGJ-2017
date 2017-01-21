@@ -28,16 +28,30 @@
             <string>/// basic movement and collision
 
 // key input check
+// running?
 if keyboard_check(vk_shift) {
     speed_mod = 6
 } else {
     speed_mod = 3
 }
 
-if keyboard_check(vk_up) vspeed = -(speed_mod);
-if keyboard_check(vk_down) vspeed = speed_mod;
-if keyboard_check(vk_left) hspeed = -(speed_mod);
-if keyboard_check(vk_right) hspeed = speed_mod;
+// vertical
+if keyboard_check(vk_up) {
+    vspeed = -(speed_mod)
+} else if keyboard_check(vk_down) {
+    vspeed = speed_mod
+} else {
+    vspeed = 0
+}
+
+// horizontal
+if keyboard_check(vk_left) {
+    hspeed = -(speed_mod)
+} else if keyboard_check(vk_right) {
+    hspeed = speed_mod;
+} else {
+    hspeed = 0
+}
 
 // collision check for walls and half-walls
 // horizontal
