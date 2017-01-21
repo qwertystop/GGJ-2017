@@ -1,0 +1,4 @@
+Guard SE: Stands still at outside corner of alcove; rotates.
+Guard SW: Path made (may need tuning). Checks two SW corner rooms and W center room in sequence.
+Guard NW: Three NW rooms (long path). Time it so that he's leaving W center room as SW guard is entering it.
+Guard NE: Standing at grand-hall entrance, not checking behind him. Still reacts to sound though. (Lazy? Talking with SE?)

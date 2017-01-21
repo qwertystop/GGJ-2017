@@ -11,7 +11,7 @@
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths">
-    <path>paths\path0</path>
+    <path>paths\SW</path>
   </paths>
   <objects name="objects">
     <object>objects\Player</object>
