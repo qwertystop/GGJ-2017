@@ -10,6 +10,7 @@
     <sprite>sprites\spr_wall</sprite>
     <sprite>sprites\spr_floor</sprite>
     <sprite>sprites\spr_noisemaker</sprite>
+    <sprite>sprites\spr_wintoken</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths">
@@ -26,6 +27,7 @@
     <object>objects\Floor</object>
     <object>objects\room0_globals</object>
     <object>objects\Noisemaker</object>
+    <object>objects\WinToken</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\room0</room>

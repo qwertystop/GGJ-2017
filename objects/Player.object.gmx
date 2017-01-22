@@ -81,10 +81,12 @@ if keyboard_check(vk_left) and (hspeed &gt; -20) {
 if (place_meeting(x+hspeed,y,Wall)) {
     instance_create(x, y, Noisemaker);
     hspeed = -hspeed;
+    score += 1;
 }
 if (place_meeting(x,y+vspeed,Wall)) {
     instance_create(x, y, Noisemaker);
     vspeed = -vspeed;
+    score += 1;
 }
 
 // actually calculating distance is too slow?
@@ -96,6 +98,44 @@ self.tiley = round((self.y / global.tilesize) + 1)
 </string>
           </argument>
         </arguments>
+      </action>
+    </event>
+    <event eventtype="4" ename="WinToken">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Display score
+show_message("Success!#You crashed " + string(score) + " times.")
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>332</id>
+        <kind>0</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>0</useapplyto>
+        <exetype>1</exetype>
+        <functionname>action_end_game</functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
       </action>
     </event>
     <event eventtype="7" enumb="0">

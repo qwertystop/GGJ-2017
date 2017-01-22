@@ -39,7 +39,7 @@ while (!ds_stack_empty(to_check_x)) {
     var vol = ds_stack_pop(to_check_vol);
     if (ypos >= 0 and ypos < global.gridsize
             and xpos >= 0 and xpos < global.gridsize) {
-        ds_grid_get(global.map, xpos, ypos);
+        vol -= ds_grid_get(global.map, xpos, ypos);
         if (target[xpos, ypos] < vol) {
             target[xpos, ypos] = vol
         }

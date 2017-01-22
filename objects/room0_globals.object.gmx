@@ -98,6 +98,9 @@ for (i=0; i&lt;global.gridsize; ++i) {
     }
 }
 
+// create win token
+instance_create(44*global.tilesize, 44*global.tilesize, WinToken)
+
 global.soundsources = ds_list_create()
 </string>
           </argument>
