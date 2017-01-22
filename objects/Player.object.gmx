@@ -26,6 +26,7 @@
           <argument>
             <kind>1</kind>
             <string>///Initialization
+self.maxspeed = 23
 ds_list_add(global.soundsources, self)
 </string>
           </argument>
@@ -53,26 +54,30 @@ ds_list_add(global.soundsources, self)
 
 // key input check
 // running?
-if keyboard_check(vk_shift) {
-    speed_mod = 5
-} else if keyboard_check(vk_control) {
+if keyboard_check(vk_control) {
     speed_mod = 1
 } else {
     speed_mod = 3
 }
 
 // vertical
-if keyboard_check(vk_up) and (vspeed &gt; -20){
+if keyboard_check(vk_up) and (vspeed &gt; -self.maxspeed){
     vspeed -= speed_mod;
-} else if keyboard_check(vk_down) and (vspeed &lt; 20){
+} else if keyboard_check(vk_down) and (vspeed &lt; self.maxspeed){
     vspeed += speed_mod
 }
 
 // horizontal
-if keyboard_check(vk_left) and (hspeed &gt; -20) {
+if keyboard_check(vk_left) and (hspeed &gt; -self.maxspeed) {
     hspeed -= (speed_mod)
-} else if keyboard_check(vk_right) and (hspeed &lt; 20){
+} else if keyboard_check(vk_right) and (hspeed &lt; self.maxspeed){
     hspeed += speed_mod;
+}
+
+// shift for drag
+if keyboard_check(vk_shift) {
+    vspeed *= 0.9;
+    hspeed *= 0.9;
 }
 
 // collision check for walls and half-walls
