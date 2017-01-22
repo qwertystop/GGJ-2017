@@ -88,14 +88,13 @@ ds_grid_set_region(global.map, 28, 6, 29, 27, global.wallmute)
 // final horizontal
 ds_grid_set_region(global.map, 30, 14, 35, 15, global.wallmute)
 
-// create wall or floor as appropriate
+// create floor and possibly walls as appropriate
 for (i=0; i&lt;global.gridsize; ++i) {
     for (j=0; j&lt;global.gridsize; ++j) {
-        if ds_grid_get(global.map, i, j) == 0 {
-            newfloor = instance_create(i*global.tilesize, j*global.tilesize, Floor)
-        } else {
+        if ds_grid_get(global.map, i, j) != 0 {
             instance_create(i*global.tilesize, j*global.tilesize, Wall)
         }
+        instance_create(i*global.tilesize, j*global.tilesize, Floor)
     }
 }
 
