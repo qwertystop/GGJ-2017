@@ -13,10 +13,7 @@
     <sprite>sprites\spr_wintoken</sprite>
   </sprites>
   <backgrounds name="background"/>
-  <paths name="paths">
-    <path>paths\SW</path>
-    <path>paths\NW</path>
-  </paths>
+  <paths name="paths"/>
   <scripts name="scripts">
     <script>scripts\fillVolume.gml</script>
   </scripts>
