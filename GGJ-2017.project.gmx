@@ -23,7 +23,6 @@
   <objects name="objects">
     <object>objects\Player</object>
     <object>objects\Wall</object>
-    <object>objects\guard</object>
     <object>objects\Floor</object>
     <object>objects\room0_globals</object>
     <object>objects\Noisemaker</object>
