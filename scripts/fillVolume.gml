@@ -36,9 +36,13 @@ while (!ds_stack_empty(to_check_x)) {
     // use the top one from the stack
     var xpos = ds_stack_pop(to_check_x);
     var ypos = ds_stack_pop(to_check_y);
-    var vol = ds_stack_pop(to_check_vol) - ds_grid_get(global.map, xpos, ypos);
-    if (target[xpos, ypos] < vol) {
-        target[xpos, ypos] = vol
+    var vol = ds_stack_pop(to_check_vol);
+    if (ypos >= 0 and ypos < global.gridsize
+            and xpos >= 0 and xpos < global.gridsize) {
+        ds_grid_get(global.map, xpos, ypos);
+        if (target[xpos, ypos] < vol) {
+            target[xpos, ypos] = vol
+        }
     }
     // spread if it's not done
     if (vol > 1) {
